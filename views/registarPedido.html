@@ -1,46 +1,82 @@
 <!DOCTYPE html>
 <html>
 <title>My Web</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="w3-container w3-teal">
     <h1>Main Menu</h1>
     <a href="/registarPedido" class="w3-button w3-black">Registar Pedido</a>
     <a href="/worklist" class="w3-button w3-black">Ver Worklist</a>
 </div>
-<form class="w3-container w3-card-4" action="/registarPedido" method="post">
+
+<form class="w3-container w3-card-4" action="/registarPedido" id="inserirPedido">
     <h2 class="w3-text-teal">Registo de Pedidos</h2>
     <p>
         <label class="w3-text-teal"><b>Número de Utente</b></label>
-        <input class="w3-input w3-border" name="utente" type="text"></p>
+        <input class="w3-input w3-border" name="utente" type="number" required></p>
     <p>
     <p>
         <label class="w3-text-teal"><b>Data do Exame</b></label>
-        <input type="date" name="data"></p>
+        <input type="date" name="data" required></p>
     <p>
     <p>
         <label class="w3-text-teal"><b>Observações</b></label>
-        <input class="w3-input w3-border" name="obser" type="text"></p>
+        <input class="w3-input w3-border" name="obser" type="text" required></p>
     <p>
     <p>
         <label class="w3-text-teal"><b>Número de Episódio</b></label>
-        <input class="w3-input w3-border" name="episodio" type="text"></p>
+        <input class="w3-input w3-border" name="episodio" type="number" required></p>
     <p>
     <p>
         <label class="w3-text-teal"><b>Especialidade</b></label>
-        <input class="w3-input w3-border" name="especialidade" type="text"></p>
+        <input class="w3-input w3-border" name="especialidade" type="text" required></p>
     <p>
 
 
-        <button class="w3-btn w3-text-teal">Registar</button>
+        <button class="w3-btn w3-text-teal" type="submit">Registar</button>
     </p>
 </form>
 
 
+<div id="result"></div>
+
+
 <link rel="stylesheet" href="/stylesheets/style.css">
+
 <style>
     html, body, h1, h2, h3, h4, h5, h6 {
         font-family: "Helvetica Neue", sans-serif;
     }
 </style>
 
+<script>
+    // Attach a submit handler to the form
+    $("#inserirPedido").submit(function (event) {
+
+        // Stop form from submitting normally
+        event.preventDefault();
+
+        // Get some values from elements on the page:
+        var $form = $(this),
+            utente = $form.find( "input[name='utente']" ).val(),
+            data = $form.find( "input[name='data']" ).val(),
+            obser = $form.find( "input[name='obser']" ).val(),
+            numEP = $form.find( "input[name='episodio']" ).val(),
+            especialidade = $form.find( "input[name='especialidade']" ).val(),
+            url = $form.attr( "action" );
+
+        // Send the data using post
+        var posting = $.post(url, {utente: utente, data: data,obser:obser,episodio:numEP,especialidade:especialidade});
+
+        // Put the results in a div
+        posting.done(function (data) {
+            var content = data;
+            if (content=="Done"){alert("Pedido Inserido com Sucesso.");}
+            if (content=="Error"){alert("Erro no Pedido!!");}
+            //$("#result").empty().append(content);
+        });
+    });
+</script>
+
 <!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
+</html>

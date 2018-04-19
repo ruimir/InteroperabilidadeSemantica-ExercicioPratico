@@ -3,7 +3,12 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+    console.log("Connected!");
+    var sql ='select from pedido where data=CURDATE()';
+    con.query(sql,[[,estado,data,obver,utente,episodio,especialidade]],function (err, result) {
+        if (err) {res.send("Error");console.log(err)}
+        else{res.send(result);}
+    });
 });
 
 module.exports = router;
