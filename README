@@ -1,0 +1,5 @@
+O objetivo desta ficha é o desenvolvimento e implementação de um plataforma web de realização de exames clínicos.
+Uma máquina regista os pedidos, e noutra máquina serão registados os exames.
+Este sistema foi implementado com o node.js e a framework Express, e utilização do W3CSS para a página Web
+A base de dados é praticamente a mesma que a anterior, com a excepção que não é preciso a schema Exames, bem como os triggers.
+Para executar o sistema primeiro executa-se "npm install" para instalar as dependências utilizadas, e depois "npm start". Pode aceder ao sistema através do endereço http://127.0.0.1:3000/

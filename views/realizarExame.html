@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html>
+<title>Realizar Exame</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="w3-container w3-amber">
+    <h1>Realizar Exame</h1>
+    <a href="/realizarExame" class="w3-button w3-black">Realizar Exame</a>
+</div>
 
-</body>
+<div id="body"></div>
+
+
+<table class="w3-table" id="tabela">
+    <tr>
+        <th>ID do Pedido</th>
+        <th>Estado</th>
+        <th>Data</th>
+        <th>Observações</th>
+        <th>ID do Doente</th>
+        <th>Número de Episódio</th>
+        <th>Especialidade</th>
+
+    </tr>
+</table>
+
+<!--<table class="w3-table" id="tabela2">
+    <tr>
+        <th>test</th>
+    </tr>
+    <tr>
+        <td><a href="/realizarExame" class="w3-button w3-black">Realizar Exame</a></td>
+    </tr>
+</table>-->
+
+
+<link rel="stylesheet" href="/stylesheets/style.css">
+
+<script>
+    // Attach a submit handler to the form
+    $(document).ready(function () {
+
+        $.getJSON("/worklist", function (json) {
+            $.each(json, function (i, item) {
+                var link="/realizarExame/addRelatorio/id="+item.idPedido;
+                console.log(link);
+                $('<tr>').append(
+                    $('<td>').text(item.idPedido),
+                    $('<td>').text(item.Estado),
+                    $('<td>').text(item.data),
+                    $('<td>').text(item.Observacoes),
+                    $('<td>').text(item.Doente_idDoente),
+                    $('<td>').text(item.idEpisodio),
+                    $('<td>').text(item.Especialidade),
+                    $('<td> <a class="w3-button w3-black" href='+link+'>Realizar Exame</a>')
+                ).appendTo('#tabela');
+                // $('#records_table').append($tr);
+                //console.log($tr.wrap('<p>').html());
+            });
+        });
+
+    });
+
+
+</script>
 </html>
+<!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->

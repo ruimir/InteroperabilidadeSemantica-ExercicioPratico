@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<title>Realizar Exame</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="w3-container w3-amber">
+    <h1 id="id">Realizar Exame - Pedido </h1>
+    <a href="/realizarExame" class="w3-button w3-black">Realizar Exame</a>
+</div>
+
+<form class="w3-container w3-card-4" action="/realizarExame/addExame" id="inserirPedido">
+    <p>
+        <label><b>Relatório</b></label>
+        <input class="w3-input w3-border" name="relatorio" type="text" required></p>
+    <p>
+
+
+        <button class="w3-btn " type="submit">Registar</button>
+    </p>
+</form>
+
+<link rel="stylesheet" href="/stylesheets/style.css">
+
+<script>
+    $(document).ready(function () {
+        $(id).append(document.location.pathname.substring(31));
+
+    });
+
+    $("#inserirPedido").submit(function (event) {
+
+        // Stop form from submitting normally
+        event.preventDefault();
+
+        // Get some values from elements on the page:
+        var $form = $(this),
+            relatorio = $form.find( "input[name='relatorio']" ).val(),
+            url = $form.attr( "action" );
+
+        // Send the data using post
+        var posting = $.post(url, {idPedido:document.location.pathname.substring(31),relatorio:relatorio});
+
+        // Put the results in a div
+        posting.done(function (data) {
+            var content = data;
+            if (content=="Done"){alert("Pedido Inserido com Sucesso.");}
+            if (content=="Error"){alert("Erro no Pedido!!");}
+            //$("#result").empty().append(content);
+        });
+    });
+
+
+</script>
+</html>
+<!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
